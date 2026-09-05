@@ -1,0 +1,5 @@
+airport,layout,checkpoints,lane_hours,cost,worst_checkpoint_p95,pax_weighted_mean_wait,meets_target
+ATL,pooled,1,584.0,93440.0,1.7138007177768533,0.4193243250858386,True
+ATL,"split, re-optimised",6,668.0,106880.0,5.41876088599792,0.6762719289184925,True
+ATL,"split, same lanes",6,602.0,96320.0,36.153167670378814,3.57090509358694,False
+BNA,pooled,1,252.0,40320.0,2.4230258501886244,0.5454681839606556,True

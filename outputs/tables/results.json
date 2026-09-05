@@ -1,0 +1,63 @@
+{
+  "quick": false,
+  "seed": 20260607,
+  "carrier_default_share": 0.0,
+  "flights_loaded": 36219,
+  "flights_including_cancelled": 36686,
+  "showup": {
+    "family": "beta",
+    "earliest_minutes_before": 20.0,
+    "latest_minutes_before": 210.0,
+    "alpha": 2.35,
+    "beta": 3.1,
+    "mode_minutes_before": 94.3,
+    "mean_minutes_before": 101.9
+  },
+  "effective_lane_rate_per_hour": 160.2,
+  "fitted_shift": {
+    "ATL": 20,
+    "BNA": -5
+  },
+  "screening_yield": {
+    "ATL": {
+      "intercept": 0.7614609339607346,
+      "slope": -0.24423435461224793,
+      "share_at_06": 0.8835781112668585,
+      "share_at_12": 0.7614609339607346,
+      "share_at_20": 0.5986380308859026,
+      "clipped": false
+    },
+    "BNA": {
+      "intercept": 0.8000394950302414,
+      "slope": -0.38566716428953113,
+      "share_at_06": 0.992873077175007,
+      "share_at_12": 0.8000394950302414,
+      "share_at_20": 0.542928052170554,
+      "clipped": false
+    }
+  },
+  "cross_engine": {
+    "passengers": 8666,
+    "max_abs_difference_minutes": 0.0
+  },
+  "verification_all_within_interval": true,
+  "design_day": {
+    "ATL": "2026-06-26",
+    "BNA": "2026-06-21"
+  },
+  "insurance": {
+    "ATL": {
+      "base_cost": 93440.0,
+      "hardened_cost": 102400.0,
+      "extra_cost": 8960.0
+    },
+    "BNA": {
+      "base_cost": 40320.0,
+      "hardened_cost": 43520.0,
+      "extra_cost": 3200.0
+    }
+  },
+  "runtime_seconds": 11087.3,
+  "eval_replications": 30,
+  "optimiser_replications": 10
+}

@@ -1,0 +1,150 @@
+run:
+  seed: 20260607
+  schedule_year: 2026
+  schedule_month: 6
+  replications: 30
+  warmup_minutes: 0
+  sim_start_hour: 3
+  sim_end_hour: 26
+
+airports:
+  large_hub:
+    code: ATL
+    connecting_share: 0.60
+    checkpoint_share: 1.0
+    excluded_checkpoints:
+      - F Arrival Checkpoint
+      - Private Terminal
+  mid_size:
+    code: BNA
+    connecting_share: 0.10
+    checkpoint_share: 1.0
+    excluded_checkpoints: []
+
+days:
+  auto_select: true
+  n_days: 7
+  calibration_start: "2026-06-01"
+  calibration_end: "2026-06-06"
+  anchor_week_start: "2026-06-07"
+  anchor_week_end: "2026-06-13"
+
+demand:
+  slot_minutes: 5
+  seats_per_departure_source: assumed
+  load_factor: 0.855
+  showup:
+    family: beta
+    earliest_minutes_before_departure: 20
+    latest_minutes_before_departure: 210
+    alpha: 2.35
+    beta: 3.10
+
+service:
+  doc_check:
+    positions_per_lane: 0.7
+    min_positions: 1
+    mean_seconds: 12.0
+    cv: 0.35
+  screening:
+    mean_seconds: 14.5
+    cv: 0.45
+  secondary:
+    share: 0.055
+    mean_seconds: 145.0
+    cv: 0.60
+
+staffing:
+  slot_minutes: 30
+  min_shift_slots: 8
+  shift_start_stride_slots: 2
+  cost_per_lane_hour: 160.0
+  max_lanes: 70
+  min_lanes: 1
+
+target:
+  p95_wait_minutes: 20.0
+  clearance_cutoff_minutes: 30.0
+
+optimiser:
+  approximation: mmc_stationary
+  max_rounds: 6
+  safety_margin: 0.0
+
+robustness:
+  demand_uplift: 0.10
+  lane_outage_lanes: 1
+  lane_outage_hours: 2
+  service_slowdown: 0.15
+
+sensitivity:
+  showup_shift_minutes: [-15, 0, 15]
+  load_factor: [0.80, 0.855, 0.90]
+  screening_mean_seconds: [12.5, 14.5, 17.0]
+  screening_yield_delta: [-0.10, 0.0, 0.10]
+
+sources:
+  demand.load_factor: >-
+    Assumed. Sits inside the range US domestic carriers report for a summer month.
+    Varied in the sensitivity analysis.
+  demand.showup.family: >-
+    Functional form follows the unimodal show-up profiles used in airport terminal
+    planning: ACRP Report 25, Airport Passenger Terminal Planning and Design
+    (Transportation Research Board, 2010) and the IATA Airport Development Reference
+    Manual. The parameters below are assumed, not measured.
+  demand.showup.earliest_minutes_before_departure: Assumed.
+  demand.showup.latest_minutes_before_departure: Assumed.
+  demand.showup.alpha: Assumed. Shifted plus and minus 15 minutes in the sensitivity analysis.
+  demand.showup.beta: Assumed. Shifted plus and minus 15 minutes in the sensitivity analysis.
+  demand.slot_minutes: Modelling choice, not an assumption about the world.
+  days.calibration_start: >-
+    Calibration window. The screening yield and the show-up shift are fitted here and
+    nowhere else.
+  days.calibration_end: Calibration window.
+  days.anchor_week_start: >-
+    Held out week. Every validation figure quoted comes from this window, which the fit
+    never saw.
+  days.anchor_week_end: Held out week.
+  service.doc_check.mean_seconds: >-
+    Assumed. A travel document check of about twelve seconds gives one podium roughly
+    300 passengers an hour, which is the order of magnitude quoted for the position.
+  service.doc_check.positions_per_lane: >-
+    Assumed. Set so document check is not the binding stage, which matches how
+    checkpoints are actually staffed.
+  service.doc_check.cv: Assumed.
+  service.screening.mean_seconds: >-
+    Assumed. Chosen together with the secondary screening figures so that one open lane
+    clears about 160 passengers an hour, inside the 150 to 180 per hour range quoted for
+    a standard screening lane. Varied in the sensitivity analysis.
+  service.screening.cv: Assumed.
+  service.secondary.share: >-
+    Assumed. Represents a bag search that occupies the lane, not a pat-down handled to
+    one side.
+  service.secondary.mean_seconds: Assumed.
+  service.secondary.cv: Assumed.
+  staffing.cost_per_lane_hour: >-
+    Assumed. Roughly four and a half screening officers on a lane at a fully loaded
+    hourly cost. Only relative cost between plans matters for the recommendation.
+  staffing.min_shift_slots: Assumed shift rule, a four hour minimum block.
+  staffing.shift_start_stride_slots: Assumed shift rule, shifts may start on the hour.
+  staffing.max_lanes: Assumed physical cap on the pooled checkpoint.
+  target.p95_wait_minutes: Policy target, set by the study rather than observed.
+  optimiser.safety_margin: >-
+    Modelling choice. A global inflation of the arrival rate before the queueing
+    approximation sizes a slot. Zero, because the simulation feedback loop tightens
+    locally instead, which is cheaper than padding every slot.
+  optimiser.max_rounds: >-
+    Modelling choice. The cap on how many times the requirement is tightened and the
+    MILP re-solved.
+  target.clearance_cutoff_minutes: >-
+    Assumed. A passenger is counted as having made their flight if they clear screening
+    at least this long before scheduled departure.
+  airports.large_hub.connecting_share: >-
+    Prior assumption only. The figure actually used is the originating factor fitted to
+    TSA throughput on the calibration week, reported in validation_calibration.csv.
+  airports.mid_size.connecting_share: >-
+    Prior assumption only. Superseded by the fitted originating factor in the same way.
+  seats_per_departure: >-
+    Assumed, by operating carrier. BTS T-100 Domestic Segment is the right source for
+    seats but has no stable direct download and its form could not be driven from this
+    environment, so these are stated fleet averages rather than measurements.

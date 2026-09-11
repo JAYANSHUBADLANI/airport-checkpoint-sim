@@ -1,5 +1,7 @@
 # Airport checkpoint simulation and staffing optimisation
 
+[![tests](https://github.com/JAYANSHUBADLANI/airport-checkpoint-sim/actions/workflows/tests.yml/badge.svg)](https://github.com/JAYANSHUBADLANI/airport-checkpoint-sim/actions/workflows/tests.yml)
+
 I built a discrete event simulation of the security checkpoint at two US airports, driven
 by the real flight schedule for June 2026, validated it against the throughput TSA
 actually recorded at those checkpoints, and put a mixed integer optimiser on top of it

@@ -31,7 +31,7 @@
 | target.clearance_cutoff_minutes | 30.0 | Assumed. A passenger is counted as having made their flight if they clear screening at least this long before scheduled departure. |
 | airports.large_hub.connecting_share | 0.6 | Prior assumption only. The figure actually used is the originating factor fitted to TSA throughput on the calibration week, reported in validation_calibration.csv. |
 | airports.mid_size.connecting_share | 0.1 | Prior assumption only. Superseded by the fitted originating factor in the same way. |
-| seats_per_departure | 23 carriers, 30 to 195 seats, default 110 | Assumed, by operating carrier. BTS T-100 Domestic Segment is the right source for seats but has no stable direct download and its form could not be driven from this environment, so these are stated fleet averages rather than measurements. |
+| seats_per_departure | 23 carriers, 30 to 195 seats, default 110 | Assumed, by operating carrier. BTS T-100 Domestic Segment is the right source for seats but has no stable direct download and its ASP.NET postback form resists scripted access, so these are stated fleet averages rather than measurements. |
 
 ### Verification against M/M/c
 

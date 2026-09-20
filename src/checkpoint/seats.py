@@ -2,8 +2,8 @@
 
 The BTS on-time performance file identifies the operating carrier but carries no seat
 count. The canonical seat source is BTS T-100 Domestic Segment, which has no stable
-direct download URL and is served only behind an ASP.NET form that could not be driven
-from this environment, so the seat figures below are an assumption, not a measurement.
+direct download URL and is served only behind an ASP.NET postback form that resists
+scripted access, so the seat figures below are an assumption, not a measurement.
 They are average seats per domestic departure by reporting carrier, consistent with the
 published mainline and regional fleet configurations for each carrier. Every number
 here is labelled "assumed" in the README, and the load factor that multiplies them is
